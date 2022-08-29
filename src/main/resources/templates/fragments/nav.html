@@ -10,7 +10,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul th:unless="${@currentUser.isAnonymous()}" class="navbar-nav mx-auto">
+            <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#">
 <!--                        <span th:text="|Hello ${@currentUser.username}|"></span>-->
@@ -19,7 +19,7 @@
                     </a>
                 </li>
 
-                <li th:if="${@currentUser.isAdmin()}" class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                        role="button" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">
@@ -40,7 +40,7 @@
                     <a class="nav-link" href="/homework/add">Add Homework</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users/profile/{id}(id = ${@currentUser.id})}">Profile</a>
+                    <a class="nav-link">Profile</a>
                 </li>
 
             </ul>
