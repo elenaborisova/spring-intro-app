@@ -1,6 +1,9 @@
 package com.example.springintroapp.services;
 
+import com.example.springintroapp.models.entities.RoleNameEnum;
 import com.example.springintroapp.models.services.UserServiceModel;
+
+import java.util.List;
 
 public interface UserService {
     void registerUser(UserServiceModel userServiceModel);
@@ -11,4 +14,7 @@ public interface UserService {
 
     void logout();
 
+    List<String> findAllUsernames();
+
+    void changeRole(String username, RoleNameEnum roleNameEnum);
 }
