@@ -1,4 +1,4 @@
-package com.example.springintroapp.web;
+package com.example.springintroapp.web.controllers;
 
 import com.example.springintroapp.models.binding.UserLoginBindingModel;
 import com.example.springintroapp.models.binding.UserRegisterBindingModel;
