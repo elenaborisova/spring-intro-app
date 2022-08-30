@@ -1,5 +1,6 @@
 package com.example.springintroapp.web;
 
+import com.example.springintroapp.models.binding.UserLoginBindingModel;
 import com.example.springintroapp.models.binding.UserRegisterBindingModel;
 import com.example.springintroapp.models.services.UserServiceModel;
 import com.example.springintroapp.services.UserService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -29,8 +31,44 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        if (!model.containsAttribute("userLoginBindingModel")) {
+            model.addAttribute("userLoginBindingModel", new UserLoginBindingModel());
+            model.addAttribute("notFound", false);
+        }
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginConfirm(@Valid @ModelAttribute UserLoginBindingModel userLoginBindingModel,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes,
+                               HttpSession httpSession) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute(
+                    "userLoginBindingModel", userLoginBindingModel);
+            redirectAttributes.addAttribute(
+                    "org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
+
+            return "redirect:login";
+        }
+
+        UserServiceModel userServiceModel = userService.findUserByUsernameAndPassword(
+                userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword()
+        );
+
+        if (userServiceModel == null) {
+            redirectAttributes.addFlashAttribute(
+                    "userLoginBindingModel", userLoginBindingModel);
+            redirectAttributes.addFlashAttribute("notFound", true);
+
+            return "redirect:login";
+        }
+
+        httpSession.setAttribute("userServiceModel", userServiceModel);
+
+        return "redirect:/";
     }
 
     @GetMapping("/register")
@@ -57,7 +95,7 @@ public class UserController {
                     bindingResult);
 
             return "redirect:register";
-         }
+        }
 
         UserServiceModel userServiceModel = modelMapper.map(
                 userRegisterBindingModel, UserServiceModel.class);
