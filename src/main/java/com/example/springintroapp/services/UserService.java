@@ -1,6 +1,7 @@
 package com.example.springintroapp.services;
 
 import com.example.springintroapp.models.entities.RoleNameEnum;
+import com.example.springintroapp.models.entities.UserEntity;
 import com.example.springintroapp.models.services.UserServiceModel;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface UserService {
     List<String> findAllUsernames();
 
     void changeRole(String username, RoleNameEnum roleNameEnum);
+
+    UserEntity findById(Long id);
 }

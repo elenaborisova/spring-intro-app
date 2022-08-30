@@ -7,6 +7,11 @@ import com.example.springintroapp.services.ExerciseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
 
@@ -23,5 +28,28 @@ public class ExerciseServiceImpl implements ExerciseService {
         exerciseRepository.save(
                 modelMapper.map(exerciseServiceModel, ExerciseEntity.class)
         );
+    }
+
+    @Override
+    public List<String> findAllNames() {
+        return exerciseRepository.findAllNames();
+    }
+
+    @Override
+    public boolean checkIsLate(String exercise) {
+        ExerciseEntity exerciseEntity = exerciseRepository
+                .findByName(exercise)
+                .orElse(null);
+
+        return exerciseEntity
+                .getDueDate()
+                .isBefore(ChronoLocalDate.from(LocalDateTime.now()));
+    }
+
+    @Override
+    public ExerciseEntity findByName(String name) {
+        return exerciseRepository
+                .findByName(name)
+                .orElse(null);
     }
 }

@@ -10,12 +10,12 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "exercises")
 public class ExerciseEntity extends BaseEntity {
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
     @Column(name = "started_on")
     private LocalDate startedOn;
     @Column(name = "due_date")
-    private LocalDate dueDAte;
+    private LocalDate dueDate;
 
     public ExerciseEntity() {
     }
@@ -36,11 +36,11 @@ public class ExerciseEntity extends BaseEntity {
         this.startedOn = startedOn;
     }
 
-    public LocalDate getDueDAte() {
-        return dueDAte;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
-    public void setDueDAte(LocalDate dueDAte) {
-        this.dueDAte = dueDAte;
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 }

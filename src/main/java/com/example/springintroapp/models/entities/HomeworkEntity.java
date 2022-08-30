@@ -2,12 +2,13 @@ package com.example.springintroapp.models.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "homeworks")
 public class HomeworkEntity extends BaseEntity {
     @Column(name = "added_on")
-    private LocalDate addedOn;
+    private LocalDateTime addedOn;
     @Column(name = "git_address")
     private String gitAddress;
     @ManyToOne
@@ -18,11 +19,11 @@ public class HomeworkEntity extends BaseEntity {
     public HomeworkEntity() {
     }
 
-    public LocalDate getAddedOn() {
+    public LocalDateTime getAddedOn() {
         return addedOn;
     }
 
-    public void setAddedOn(LocalDate addedOn) {
+    public void setAddedOn(LocalDateTime addedOn) {
         this.addedOn = addedOn;
     }
 
