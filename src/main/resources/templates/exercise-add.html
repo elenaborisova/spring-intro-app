@@ -21,24 +21,26 @@
                 </div>
                 <div class="row mt-4 tm-edit-product-row">
                     <div class="col-xl-7 col-lg-7 col-md-12">
-                        <form action="/exercises/add" method="POST" th:object="${exerciseAddBindingModel}"
+                        <form action="/exercises/add" method="POST"
+                              th:object="${exerciseBindingModel}"
                               class="tm-edit-product-form" >
                             <div class="input-group mb-3">
                                 <label for="name" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Name
                                 </label>
-                                <input th:field="*{name}" id="name" name="name" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"/>
+                                <input th:field="*{name}" th:errorclass="bg-danger" id="name" name="name" type="text"
+                                       class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"/>
 
                             </div>
                             <div class="input-group mb-3 justify-content-center">
 
                                     <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Exercise name length must be more than 2 characters</small>
-                                <small th:if="${exerciseAddBindingModel.isExist()}"  class="text-danger" >Exercise exist, chose another name!</small>
+<!--                                <small  class="text-danger" >Exercise exist, chose another name!</small>-->
 
                             </div>
                             <div class="input-group mb-3">
                                 <label for="startedOn" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">StartedOn Date
                                 </label>
-                                <input th:field="*{startedOn}" id="startedOn" name="startedOn" type="datetime-local"
+                                <input th:field="*{startedOn}" th:errorclass="bg-danger" id="startedOn" name="startedOn" type="datetime-local"
                                        class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"
                                        data-large-mode="true"/>
 
@@ -52,7 +54,7 @@
 
                                 <label for="dueDate" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Due Date
                                 </label>
-                                <input th:field="*{dueDate}" id="dueDate" name="dueDate" type="datetime-local"
+                                <input th:field="*{dueDate}" th:errorclass="bg-danger" id="dueDate" name="dueDate" type="datetime-local"
                                        class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"
                                        data-large-mode="true"/>
                             </div>
