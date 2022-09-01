@@ -3,6 +3,7 @@ package com.example.springintroapp.services.impl;
 import com.example.springintroapp.models.entities.RoleNameEnum;
 import com.example.springintroapp.models.entities.UserEntity;
 import com.example.springintroapp.models.services.UserServiceModel;
+import com.example.springintroapp.models.views.UserProfileViewModel;
 import com.example.springintroapp.repositories.UserRepository;
 import com.example.springintroapp.security.CurrentUser;
 import com.example.springintroapp.services.RoleService;
@@ -11,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -82,5 +84,19 @@ public class UserServiceImpl implements UserService {
         return userRepository
                 .findById(id)
                 .orElse(null);
+    }
+
+    @Override
+    public UserProfileViewModel findProfileById(Long id) {
+        UserEntity user = userRepository
+                .findById(id)
+                .orElse(null);
+
+        return modelMapper.map(user, UserProfileViewModel.class)
+                .setHomeworkSet(user.getHomeworkSet()
+                        .stream()
+                        .map(homework -> homework.getExercise().getName())
+                        .collect(Collectors.toSet()));
+
     }
 }

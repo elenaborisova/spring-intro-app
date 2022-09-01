@@ -3,6 +3,7 @@ package com.example.springintroapp.models.entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "homeworks")
@@ -15,6 +16,9 @@ public class HomeworkEntity extends BaseEntity {
     private UserEntity author;
     @ManyToOne
     private ExerciseEntity exercise;
+
+    @OneToMany(mappedBy = "homework", fetch = FetchType.EAGER)
+    private Set<CommentEntity> commentsSet;
 
     public HomeworkEntity() {
     }
@@ -50,4 +54,14 @@ public class HomeworkEntity extends BaseEntity {
     public void setExercise(ExerciseEntity exercise) {
         this.exercise = exercise;
     }
+
+    public Set<CommentEntity> getCommentsSet() {
+        return commentsSet;
+    }
+
+    public HomeworkEntity setCommentsSet(Set<CommentEntity> commentsSet) {
+        this.commentsSet = commentsSet;
+        return this;
+    }
 }
+

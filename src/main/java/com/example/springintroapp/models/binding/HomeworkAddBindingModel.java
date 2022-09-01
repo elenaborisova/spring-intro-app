@@ -3,12 +3,12 @@ package com.example.springintroapp.models.binding;
 
 import javax.validation.constraints.Pattern;
 
-public class HomeworkBindingModel {
+public class HomeworkAddBindingModel {
 
     private String exercise;
     private String gitAddress;
 
-    public HomeworkBindingModel() {
+    public HomeworkAddBindingModel() {
     }
 
     public String getExercise() {

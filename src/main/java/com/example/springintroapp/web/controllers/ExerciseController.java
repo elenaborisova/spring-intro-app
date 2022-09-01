@@ -1,6 +1,6 @@
 package com.example.springintroapp.web.controllers;
 
-import com.example.springintroapp.models.binding.ExerciseBindingModel;
+import com.example.springintroapp.models.binding.ExerciseAddBindingModel;
 import com.example.springintroapp.models.services.ExerciseServiceModel;
 import com.example.springintroapp.services.ExerciseService;
 import org.modelmapper.ModelMapper;
@@ -30,14 +30,14 @@ public class ExerciseController {
     @GetMapping("/add")
     public String add(Model model) {
         if (!model.containsAttribute("exerciseBindingModel")) {
-            model.addAttribute("exerciseBindingModel", new ExerciseBindingModel());
+            model.addAttribute("exerciseBindingModel", new ExerciseAddBindingModel());
         }
 
         return "exercise-add";
     }
 
     @PostMapping("/add")
-    public String addConfirm(@Valid @ModelAttribute ExerciseBindingModel exerciseBindingModel,
+    public String addConfirm(@Valid @ModelAttribute ExerciseAddBindingModel exerciseBindingModel,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
 

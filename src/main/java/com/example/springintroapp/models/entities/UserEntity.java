@@ -1,6 +1,7 @@
 package com.example.springintroapp.models.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -15,6 +16,8 @@ public class UserEntity extends BaseEntity {
     private String git;
     @ManyToOne
     private RoleEntity role;
+    @OneToMany(mappedBy = "author")
+    private Set<HomeworkEntity> homeworkSet;
 
     public UserEntity() {
     }
@@ -57,5 +60,14 @@ public class UserEntity extends BaseEntity {
 
     public void setRole(RoleEntity role) {
         this.role = role;
+    }
+
+    public Set<HomeworkEntity> getHomeworkSet() {
+        return homeworkSet;
+    }
+
+    public UserEntity setHomeworkSet(Set<HomeworkEntity> homeworkSet) {
+        this.homeworkSet = homeworkSet;
+        return this;
     }
 }

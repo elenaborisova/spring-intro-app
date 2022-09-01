@@ -1,6 +1,6 @@
 package com.example.springintroapp.web.controllers;
 
-import com.example.springintroapp.models.binding.HomeworkBindingModel;
+import com.example.springintroapp.models.binding.HomeworkAddBindingModel;
 import com.example.springintroapp.services.ExerciseService;
 import com.example.springintroapp.services.HomeworkService;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class HomeworkController {
     @GetMapping("/add")
     public String add(Model model) {
         if (!model.containsAttribute("homeworkBindingModel")) {
-            model.addAttribute("homeworkBindingModel", new HomeworkBindingModel());
+            model.addAttribute("homeworkBindingModel", new HomeworkAddBindingModel());
             model.addAttribute("isLate", false);
         }
 
@@ -37,7 +37,7 @@ public class HomeworkController {
     }
 
     @GetMapping("/add")
-    public String addConfirm(@Valid @ModelAttribute HomeworkBindingModel homeworkBindingModel,
+    public String addConfirm(@Valid @ModelAttribute HomeworkAddBindingModel homeworkBindingModel,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
 

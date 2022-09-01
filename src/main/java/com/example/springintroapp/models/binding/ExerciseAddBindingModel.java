@@ -7,13 +7,13 @@ import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-public class ExerciseBindingModel {
+public class ExerciseAddBindingModel {
 
     private String name;
     private LocalDateTime startedOn;
     private LocalDateTime dueDate;
 
-    public ExerciseBindingModel() {
+    public ExerciseAddBindingModel() {
     }
 
     @Size(min = 2, message = "Name must be minimum two characters")
