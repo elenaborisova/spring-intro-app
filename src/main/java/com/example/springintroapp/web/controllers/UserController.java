@@ -3,6 +3,7 @@ package com.example.springintroapp.web.controllers;
 import com.example.springintroapp.models.binding.UserLoginBindingModel;
 import com.example.springintroapp.models.binding.UserRegisterBindingModel;
 import com.example.springintroapp.models.services.UserServiceModel;
+import com.example.springintroapp.security.CurrentUser;
 import com.example.springintroapp.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,12 @@ public class UserController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final CurrentUser currentUser;
 
-    public UserController(UserService userService, ModelMapper modelMapper) {
+    public UserController(UserService userService, ModelMapper modelMapper, CurrentUser currentUser) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
     }
 
 
@@ -113,6 +116,10 @@ public class UserController {
     @GetMapping("/profile/{id}")
     public String profile(@PathVariable Long id,
                           Model model) {
+
+        if (currentUser.isAnonymous()) {
+            return "redirect:login";
+        }
 
         model.addAttribute("userProfileViewModel", userService.findProfileById(id));
 

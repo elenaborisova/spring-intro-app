@@ -24,4 +24,5 @@ public interface UserService {
 
     UserProfileViewModel findProfileById(Long id);
 
+    Long findUsersCount();
 }

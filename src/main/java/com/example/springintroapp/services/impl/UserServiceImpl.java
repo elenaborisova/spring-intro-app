@@ -99,4 +99,10 @@ public class UserServiceImpl implements UserService {
                         .collect(Collectors.toSet()));
 
     }
+
+    @Override
+    public Long findUsersCount() {
+        return userRepository.count();
+    }
+
 }

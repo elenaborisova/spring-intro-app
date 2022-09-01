@@ -10,6 +10,10 @@ import com.example.springintroapp.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -36,5 +40,39 @@ public class CommentServiceImpl implements CommentService {
         commentEntity.setHomework(homeworkService.findById(homeworkId));
 
         commentRepository.save(commentEntity);
+    }
+
+    @Override
+    public List<String> findTopStudentsByAvgScore() {
+        return commentRepository.findTopByAvgScore();
+    }
+
+    @Override
+    public Double findAvgScore() {
+        return commentRepository.findAvgScore();
+    }
+
+    @Override
+    public Map<Integer, Integer> findScoreMap() {
+        Map<Integer, Integer> scoreMap = initScoreFind();
+
+        commentRepository
+                .findAll()
+                .forEach(comment -> {
+                    Integer score = comment.getScore();
+                    scoreMap.put(score, scoreMap.get(score) + 1);
+                });
+
+        return scoreMap;
+    }
+
+    private Map<Integer, Integer> initScoreFind() {
+        Map<Integer, Integer> scoreMap = new HashMap<>();
+
+        for (int i = 2; i <= 6; i++) {
+            scoreMap.put(i, 0);
+        }
+
+        return scoreMap;
     }
 }
